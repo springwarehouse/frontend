@@ -21,8 +21,8 @@ export const useWsStore = defineStore('ws', () => {
   })
   ws.on('close', () => {
     connected.value = false
-    ws.off(`monitor.data`)
-    ws.off('warning.data')
+    ws.off(`template.data`)
+    ws.off('message.data')
   })
 
   return {
@@ -41,9 +41,9 @@ export function useWsWarning(cb) {
     connected,
     (conn) => {
       if (conn) {
-        ws.on('warning.data', cb)
+        ws.on('message.data', cb)
       } else {
-        ws.off('warning.data', cb)
+        ws.off('message.data', cb)
       }
     },
     {
