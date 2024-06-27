@@ -21,11 +21,11 @@ import Main from './Main.vue'
 import NavBar from './NavBar.vue'
 import { ElNotification } from 'element-plus'
 
-import { useWsWarning } from '@/stores/wsStore'
+import { useWsInfo } from "@/stores/wsStore";
 
-useWsWarning((data) => {
-  const { time, message } = data
-  const msg = `${time} ${message}`
+useWsInfo((data) => {
+  const { time, message } = data;
+  const msg = `在${time}收到消息：${message}`;
   ElNotification({
     title: 'Info',
     message: msg,
