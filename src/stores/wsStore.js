@@ -21,7 +21,7 @@ export const useWsStore = defineStore('ws', () => {
   })
   ws.on('close', () => {
     connected.value = false
-    ws.off(`template.data`)
+    ws.off(`template1.data`)
     ws.off('message.data')
   })
 
@@ -31,8 +31,8 @@ export const useWsStore = defineStore('ws', () => {
   }
 })
 
-// 接收告警信息
-export function useWsWarning(cb) {
+// 接收信息
+export function useWsInfo(cb) {
   const wsStore = useWsStore()
   const { ws } = wsStore
   const { connected } = storeToRefs(wsStore)
@@ -74,13 +74,13 @@ export function useWsDataMonitor() {
       }
     }
     ws.request(
-      'monitor.start',
+      'template1.start',
       {
         module,
         deviceId
       },
       () => {
-        ws.on(`monitor.data`, callback)
+        ws.on(`template1.data`, callback)
       }
     )
     return () => stopMonitor({ module, deviceId, cb: callback })
@@ -92,13 +92,13 @@ export function useWsDataMonitor() {
       return
     }
     ws.request(
-      'monitor.stop',
+      'template1.stop',
       {
         module,
         deviceId
       },
       () => {
-        ws.off(`monitor.data`, cb)
+        ws.off(`template1.data`, cb)
       }
     )
   }
